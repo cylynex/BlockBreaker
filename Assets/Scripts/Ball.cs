@@ -24,12 +24,20 @@ public class Ball : MonoBehaviour {
     [SerializeField] Vector2 ballMinSpeed = new Vector2(1.5f, 1.5f);
 
     private void Start() {
-        paddle = GameObject.FindGameObjectWithTag("Paddle").GetComponent<Paddle>();
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        paddleToBall = new Vector2(0, 0.4f);
-        paddleToBall = transform.position - paddle.transform.position;
+        GetReferences();
+        SetBallPosition();
         audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void GetReferences() {
+        paddle = GameObject.FindGameObjectWithTag("Paddle").GetComponent<Paddle>();
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+    }
+
+    private void SetBallPosition() {
+        paddleToBall = new Vector2(0, 0.4f);
+        paddleToBall = transform.position - paddle.transform.position;
     }
 
     private void Update() {
@@ -47,10 +55,6 @@ public class Ball : MonoBehaviour {
                 gameController.RemoveBallFromPlay();
                 Destroy(gameObject);
             }
-        }
-
-        if (rb.velocity.y < ballMinSpeed.y) {
-            //rb.velocity = new Vector2(rb.velocity.x, ballMinSpeed.y);
         }
     }
 
@@ -86,12 +90,9 @@ public class Ball : MonoBehaviour {
         Vector2 velocityAdjustment = new Vector2(Random.Range(0f, randomAdjustment), Random.Range(0f, randomAdjustment));
         rb.velocity += velocityAdjustment;
 
-        /*
         if (collision.gameObject.tag == "BasicBlock") {
-            //AudioClip clipToPlay = hitSounds[Random.Range(0, hitSounds.Length)];
-            //audioSource.PlayOneShot(clipToPlay);
+            audioSource.PlayOneShot(clipToPlay);
         }
-        */
     }
 
 }

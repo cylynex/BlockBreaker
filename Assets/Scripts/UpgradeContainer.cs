@@ -20,19 +20,23 @@ public class UpgradeContainer : MonoBehaviour {
 
 
     private void Start() {
+        GetReferences();
+        SetupContainer();
+        PickUpgrade();
+    }
 
-        // References
+    private void GetReferences() {
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         gameController = FindObjectOfType<GameController>();
+    }
 
+    private void SetupContainer() {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(0, -descentSpeed);
+    }
 
-
-        // Setup the upgrade
+    private void PickUpgrade() {
         selectedUpgrade = upgrades[Random.Range(0, upgrades.Length)];
-
-        // Setup the Color
         GetComponent<SpriteRenderer>().color = selectedUpgrade.upgradeColor;
     }
 
@@ -54,8 +58,7 @@ public class UpgradeContainer : MonoBehaviour {
             }
 
             // Display game text from upgrade
-            gameController.upgradeText.text = selectedUpgrade.upgradeFlavorText.ToString();
-            gameController.upgradeTextTimer = upgradeTextTime;
+            ShowText();
 
         }
 
@@ -80,6 +83,11 @@ public class UpgradeContainer : MonoBehaviour {
                 thisNewBall.GetComponent<SpriteRenderer>().color = selectedUpgrade.upgradeAltColor;
             }
         }
+    }
+
+    void ShowText() {
+        gameController.upgradeText.text = selectedUpgrade.upgradeFlavorText.ToString();
+        gameController.upgradeTextTimer = upgradeTextTime;
     }
 
 }

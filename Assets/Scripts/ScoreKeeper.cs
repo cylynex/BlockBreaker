@@ -11,18 +11,8 @@ public class ScoreKeeper : MonoBehaviour {
     [SerializeField] TextMeshProUGUI scoreField;
 
     private void Awake() {
-        print("scorekeeper awake.  Current Score is: "+currentPoints);
         scoreField = GameObject.FindGameObjectWithTag("ScoreDisplay").GetComponent<TextMeshProUGUI>();
         SetScore();
-
-        /*
-        int gcCount = GameObject.FindObjectsOfType<ScoreKeeper>().Length;
-        if (gcCount > 1) {
-            Destroy(gameObject);
-        } else {
-            DontDestroyOnLoad(gameObject);
-        }
-        */
     }
 
     public void AddPoints(int pointsToAdd) {
@@ -37,7 +27,6 @@ public class ScoreKeeper : MonoBehaviour {
     public void ResetScore() {
         currentPoints = 0;
         SetScore();
-        //Destroy(gameObject);
     }
 
 }

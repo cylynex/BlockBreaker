@@ -55,7 +55,6 @@ public class Block : MonoBehaviour {
 
     void HitBlock() {
         currentHits++;
-        //AudioSource.PlayClipAtPoint(breakSound, Camera.main.transform.position);
         if (currentHits == maxHits) {
             DestroyBlock();
         } else {
